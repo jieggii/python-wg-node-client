@@ -48,9 +48,7 @@ class WGNodeClient:
         query_params: dict[str, Any],
         body: dict[str, Any],
     ) -> str:
-        """
-        Sings provided request params using private key, returns signature in hex.
-        """
+        """Signs provided request params using private key, returns signature in hex."""
 
         path_params_bytes = _normalize_dict(path_params)
         query_params_bytes = _normalize_dict(query_params)
@@ -90,7 +88,7 @@ class WGNodeClient:
     def _parse_response(
         response: requests.Response, plaintext: bool = False
     ) -> str | dict[str, Any] | NoReturn:
-        """Parses server response. Handles API errors."""
+        """Parses server response and returns it. Handles API errors."""
         if response.status_code != HTTPStatus.OK:
             detail: str | None = None
             try:
