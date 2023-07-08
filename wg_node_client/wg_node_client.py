@@ -48,6 +48,7 @@ class WGNodeAPIClient:
     def __init__(
         self,
         socket: str,
+        *,
         public_key: rsa.PublicKey,
         private_key: rsa.PrivateKey,
         https: bool = False,
@@ -158,7 +159,7 @@ class WGNodeAPIClient:
     async def peer_config(self, peer_id: str) -> str:
         return await self._send_request(
             HTTPMethod.GET,
-            "/peer/{peer_id}",
+            "/peer/{peer_id}/config",
             path_params={"peer_id": peer_id},
             plaintext_response=True,
         )
