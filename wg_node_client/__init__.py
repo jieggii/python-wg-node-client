@@ -1,1 +1,1 @@
-from wg_node_client.wg_node_client import WGNodeClient
+from wg_node_client.wg_node_client import WGNodeAPIClient, WGNodeAPIException
