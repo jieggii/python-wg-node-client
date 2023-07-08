@@ -122,7 +122,7 @@ class WGNodeClient:
                     detail = (await response.json())["detail"]
                 except (json.JSONDecodeError, KeyError):
                     detail = await response.text()
-                raise WGNodeAPIException(response.status, detail)
+                raise WGNodeClientException(response.status, detail)
 
     # methods related to API users:
     async def api_user_create(self, public_key: str) -> dict[str, Any]:
