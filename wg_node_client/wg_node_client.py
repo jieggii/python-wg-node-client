@@ -11,6 +11,7 @@ _SIGNED_PARTS_SEPARATOR = b";"
 
 
 def _rsa_key_to_str(key: rsa.PublicKey | rsa.PublicKey) -> str:
+    """Converts rsa.PublicKey and rsa.PrivateKey to string."""
     return (
         key.save_pkcs1()
         .decode()
@@ -29,17 +30,17 @@ def _normalize(obj: dict[Any, Any]) -> bytes:
     return json.dumps(obj, separators=(",", ":"), sort_keys=True).encode()
 
 
-class WGNodeAPIException(Exception):
+class WGNodeClientException(Exception):
     def __init__(self, status_code: int, detail: Any):
         self.status_code = status_code
         self.detail = detail
         self.message = (
             f"wg-node API exception: {self.detail} (HTTP status code: {self.status_code})"
         )
-        super(WGNodeAPIException).__init__()
+        super(WGNodeClientException).__init__()
 
 
-class WGNodeAPIClient:
+class WGNodeClient:
     _socket: str
     _session: aiohttp.ClientSession
     _private_key: rsa.PrivateKey
