@@ -23,7 +23,7 @@ def _rsa_key_to_str(key: rsa.PublicKey | rsa.PublicKey) -> str:
 
 def _normalize(obj: dict[Any, Any]) -> bytes:
     """
-    Normalizes dict object to json bytes.
+    Normalizes dict object to json bytes according to the wg-node requirements.
     >>> _normalize({"foo": "bar", "x": "y"})
     >>> b'{"foo":"bar","x":"y"}'
     """
@@ -68,6 +68,7 @@ class WGNodeClient:
         query_params: dict[str, Any] | None,
         body: dict[str, Any] | None,
     ):
+        """Signs request according to the wg-node requirements."""
         hostname = self._socket.split(":", 1)[
             0
         ]  # port number is not included in request signature, only hostname
@@ -101,6 +102,7 @@ class WGNodeClient:
         body: dict[str, Any] | None = None,
         plaintext_response: bool = False,
     ) -> dict[str, Any] | str | NoReturn:
+        """Sends request to wg-node API."""
         path = path.format(**path_params) if path_params else path
         url = f"{'https' if self._https else 'http'}://{self._socket}{path}"
 
@@ -158,6 +160,7 @@ class WGNodeClient:
         )
 
     async def peer_config(self, peer_id: str) -> str:
+        """Returns peer config."""
         return await self._send_request(
             HTTPMethod.GET,
             "/peer/{peer_id}/config",
