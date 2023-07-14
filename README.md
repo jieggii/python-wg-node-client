@@ -1,3 +1,2 @@
-# wg-node-client
-
+# Python client for wg-node
 
