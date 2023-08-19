@@ -1,4 +1,4 @@
-# Python client for [wg-node](https://github.com/jieggii/wg-node)
+# Python client library for [wg-node](https://github.com/jieggii/wg-node)
 This package implements all **wg-node** API methods 
 and provides way to execute them asynchronously.
 
